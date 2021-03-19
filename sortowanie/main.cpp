@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int scal(int **tab, int**tablica_p, int poczatek, int srodek, int koniec, int k, int rozmiar_tab){
+void scal(int **tab, int**tablica_p, int poczatek, int srodek, int koniec, int k, int rozmiar_tab){
 
 
 int pomoc=poczatek;
@@ -79,6 +79,8 @@ sortuj(tab, tablica_p,poczatek,srodek, rozmiar_tab);
 sortuj(tab,tablica_p, srodek+1,koniec, rozmiar_tab);
 
 
+
+
  for(int k=0;k<rozmiar_tab; k++){
 scal(tab,tablica_p, poczatek,srodek,koniec, k, rozmiar_tab);
 
@@ -100,6 +102,9 @@ cin>>rozmiar_tab;
 cout<<"wpisz rozmiar tablicy: ";
 cin>>rozmiar;
 
+
+clock_t start, stop;
+double czas;
 
 srand(time(NULL));
 
@@ -155,25 +160,49 @@ for (int i=0; i<rozmiar; ++i){
 }
 
 */
+/*
+      for (int i=0; i<rozmiar_tab; i++){
 
+       for (int j=0; j<rozmiar; j++){
 
+        cout<<tablica[i][j]<<" ";
+   
+    }
+    cout<<endl;
+      }
+
+*/
+start=clock();
 
 sortuj(tablica, tablica_p, poczatek, rozmiar-1, rozmiar_tab);
 
+stop=clock();
+czas=(double)(stop-start)/CLOCKS_PER_SEC;
 
+cout<<"czas"<<czas;
 
 for(int i=0; i<rozmiar_tab; ++i){
 delete [] tablica_p[i];
 }
 delete [] tablica_p;
 
-
+/*
 cout<<"posrotwanie";
 
-  
+
+      for (int i=0; i<rozmiar_tab; i++){
+
+       for (int j=0; j<rozmiar; j++){
+
+        cout<<tablica[i][j]<<" ";
+   
+    }
+
+cout<<endl;
+*/
+      }
 
 
 
 
     
-}
