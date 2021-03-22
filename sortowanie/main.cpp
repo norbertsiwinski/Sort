@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <iostream>
 
+
 using namespace std;
 
-void scal(int **tab, int**tablica_p, int poczatek, int srodek, int koniec, int k, int rozmiar_tab){
+void scal(int **tab, int**tablica_p, int poczatek, int srodek, int koniec, int k){
 
 
 int pomoc=poczatek;
@@ -68,7 +69,6 @@ tab[k][i]=tablica_p[k][i];
 void sortuj(int **tab,int **tablica_p,int poczatek, int koniec, int rozmiar_tab){
 
 
-
 if(poczatek<koniec){
 
 int srodek=(poczatek+koniec)/2;
@@ -82,7 +82,7 @@ sortuj(tab,tablica_p, srodek+1,koniec, rozmiar_tab);
 
 
  for(int k=0;k<rozmiar_tab; k++){
-scal(tab,tablica_p, poczatek,srodek,koniec, k, rozmiar_tab);
+scal(tab,tablica_p, poczatek,srodek,koniec, k);
 
 }
  }
@@ -90,6 +90,37 @@ scal(tab,tablica_p, poczatek,srodek,koniec, k, rozmiar_tab);
  
   }
 
+
+
+void quick_sort(int *tab,int poczatek, int koniec){
+
+int i=poczatek;
+int j=poczatek;
+int srodek=(poczatek+koniec)/2;
+int piwot=tab[srodek];
+
+
+swap(tab[srodek],tab[koniec-1]);
+
+for(i; i<koniec; i++){
+
+
+if(tab[i]<piwot){
+
+      swap(tab[i],tab[j]);
+      j++;
+}
+}
+swap(tab[koniec-1],tab[j]);
+
+if(poczatek<j-1)
+quick_sort(tab,poczatek,j-1);
+
+
+if(j+1<koniec)
+quick_sort(tab,j+1,koniec);
+
+}
 
 
 int main(){
@@ -134,8 +165,6 @@ tablica_p[i]=new int[rozmiar];
       }
 
 
-
-
 int poczatek=0;
 /*
 sortuj(tablica, poczatek, rozmiar-1, rozmiar_tab);
@@ -171,7 +200,7 @@ for (int i=0; i<rozmiar; ++i){
     cout<<endl;
       }
 
-*/
+*//*
 start=clock();
 
 sortuj(tablica, tablica_p, poczatek, rozmiar-1, rozmiar_tab);
@@ -185,7 +214,7 @@ for(int i=0; i<rozmiar_tab; ++i){
 delete [] tablica_p[i];
 }
 delete [] tablica_p;
-
+*/
 /*
 cout<<"posrotwanie";
 
@@ -200,9 +229,35 @@ cout<<"posrotwanie";
 
 cout<<endl;
 */
-      }
+
+ for (int i=0; i<rozmiar_tab; i++){
+
+       for (int j=0; j<rozmiar; j++){
+
+        cout<<tablica[i][j]<<" ";
+   
+       }
+       cout<<endl;
+ }
+
+
+ for (int i=0; i<rozmiar_tab; i++){
+quick_sort(tablica[i],poczatek,rozmiar);
+
+}
+
+cout<<"sort";
+for (int i=0; i<rozmiar_tab; i++){
+
+       for (int j=0; j<rozmiar; j++){
+
+        cout<<tablica[i][j]<<" ";
+   
+       }
+       cout<<endl;
+ }
 
 
 
 
-    
+}
