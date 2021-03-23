@@ -4,8 +4,18 @@
 using namespace std;
 
 template<typename TYP>
-void sortuj(TYP **tab,TYP **tablica_p,int poczatek, int koniec, int rozmiar_tab);
+void sortujemy(TYP* tab, TYP* tablica_p, int poczatek, int koniec);
+
 
 template<typename TYP>
-void scal(TYP **tb, TYP**tablica_p, int poczatek, int srodek, int koniec, int k, int rozmiar_tab);
+void scal(TYP* tab, TYP* tablica_p, int poczatek, int srodek, int koniec);
 
+
+template<typename TYP>
+void quick_sort(TYP*tab, int poczatek, int koniec);
+
+template<typename TYP>
+void odwroc(TYP *tab,int rozmiar);
+
+template<typename TYP>
+bool poprawnosc(TYP *tab, int rozmiar);

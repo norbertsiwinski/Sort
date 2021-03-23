@@ -1,263 +1,182 @@
 #include <stdio.h>
 #include <iostream>
+#include "scalanie.hh"
+#include "scalanie.cpp"
 
 
 using namespace std;
 
-void scal(int **tab, int**tablica_p, int poczatek, int srodek, int koniec, int k){
-
-
-int pomoc=poczatek;
-int pierwsza=poczatek;
-int druga=srodek+1;
-
-for(int i=poczatek; i<=koniec; ++i){
-tablica_p[k][i]=tab[k][i];
-}
-
-
-
-
-
-while(pierwsza<=srodek && druga<=koniec)
-{
-
-if(tab[k][pierwsza]<tab[k][druga]){
-
-  tablica_p[k][pomoc]=tab[k][pierwsza];
-pierwsza++;
-pomoc++;
-}
-
-else{
-
-tablica_p[k][pomoc]=tab[k][druga];
-pomoc++;
-druga++;
-
-}
-}
-
-while(pierwsza<=srodek)
-
-{
-tablica_p[k][pomoc]=tab[k][pierwsza];
-pomoc++;
-pierwsza++;
-
-}
-
-while (druga<=srodek){
-tablica_p[k][pomoc] = tab[k][druga];
-druga++;
-pomoc++;
-
-}
-
-
-for(int i=poczatek; i<=koniec; i++){
-
-tab[k][i]=tablica_p[k][i];
-
-}
-
-}
-
-
-
-
-void sortuj(int **tab,int **tablica_p,int poczatek, int koniec, int rozmiar_tab){
-
-
-if(poczatek<koniec){
-
-int srodek=(poczatek+koniec)/2;
-
-
-sortuj(tab, tablica_p,poczatek,srodek, rozmiar_tab);
- 
-sortuj(tab,tablica_p, srodek+1,koniec, rozmiar_tab);
-
-
-
-
- for(int k=0;k<rozmiar_tab; k++){
-scal(tab,tablica_p, poczatek,srodek,koniec, k);
-
-}
- }
-
- 
-  }
-
-
-
-void quick_sort(int *tab,int poczatek, int koniec){
-
-int i=poczatek;
-int j=poczatek;
-int srodek=(poczatek+koniec)/2;
-int piwot=tab[srodek];
-
-
-swap(tab[srodek],tab[koniec-1]);
-
-for(i; i<koniec; i++){
-
-
-if(tab[i]<piwot){
-
-      swap(tab[i],tab[j]);
-      j++;
-}
-}
-swap(tab[koniec-1],tab[j]);
-
-if(poczatek<j-1)
-quick_sort(tab,poczatek,j-1);
-
-
-if(j+1<koniec)
-quick_sort(tab,j+1,koniec);
-
-}
 
 
 int main(){
 
-
-int rozmiar_tab;
-int rozmiar;
-cout<<"wpisz ile tablic ma sortowac: ";
-cin>>rozmiar_tab;
-cout<<"wpisz rozmiar tablicy: ";
-cin>>rozmiar;
-
-
 clock_t start, stop;
 double czas;
+int ile_tab,rozmiar,poczatek;
+poczatek=0;
+bool flag=0;
+float procent=0;
+int i=0;
 
 srand(time(NULL));
 
-    int **tablica;
-    tablica= new int*[rozmiar_tab];
+while(i!=6){
 
 
-      for (int i=0; i<rozmiar_tab; i++){
+cout<< "Podaj ilosc tablic do posortowania:";
+cin >> ile_tab;
+
+int **tablica;
+    tablica= new int*[ile_tab];
+
+cout<< "Podaj rozmiar tablicy:";
+cin >> rozmiar;
+cout<<endl;
+
+  for (int i=0; i<ile_tab; i++)
 tablica[i]=new int[rozmiar];
-      }
 
-    for (int i=0; i<rozmiar_tab; i++){
-
-       for (int j=0; j<rozmiar; j++){
-        
-    tablica[i][j]=rand() %101;
-    }
+for (int i=0; i<ile_tab; i++){
+for (int j=0; j<rozmiar; j++){
+         tablica[i][j]=rand() %101;
+         }
     }
 
 
- int ** tablica_p;
-  tablica_p= new int*[rozmiar_tab];
 
 
-      for (int i=0; i<rozmiar_tab; i++){
-tablica_p[i]=new int[rozmiar];
-      }
+cout<<"Wybierz jaka tablice chcesz sortowac:"<<endl;
+cout<<"1. Tablica losowa"<<endl;
+cout<<"2. Tablica, ktora w czesci jest juz posortowana"<<endl;
+cout<<"3. Tablica posortowana w odwrotnej kolejnosci"<<endl;
+
+cin>>i;
+
+switch(i){
+
+case 1:
+
+break;
+
+case 2:
+
+cout<<"Podaj procent, w jakim tablica ma byc posortowana:";
+cin >> procent;
+
+ for (int i=0; i<ile_tab; i++){
+quick_sort<int>(tablica[i],poczatek,rozmiar*procent/100);
+ }
 
 
-int poczatek=0;
-/*
-sortuj(tablica, poczatek, rozmiar-1, rozmiar_tab);
+break;
 
-    
-  cout<<"przed sortowaniem:"<<endl;
-    for (int i=0; i<rozmiar; i++){
-    cout<<tablica[i]<<" "<<endl;
-    
-    }
+case 3:
 
-/*
+for (int i=0; i<ile_tab; i++){
+quick_sort<int>(tablica[i],poczatek,rozmiar);
+ }
 
- sortuj(*tablica, poczatek, (rozmiar*0.97)-1);
 
-cout<< "po sortowaniu polowy"<<endl;
+for (int i=0; i<ile_tab; i++){
+odwroc<int>(tablica[i],rozmiar-1);
+}
+break;
 
-for (int i=0; i<rozmiar; ++i){
-
- cout<<tablica[i]<<endl;
-  
 }
 
-*/
-/*
-      for (int i=0; i<rozmiar_tab; i++){
 
-       for (int j=0; j<rozmiar; j++){
+while(i!=5){
+  
+  cout<<endl<<"Wybierz algorytm sortowania:"<<endl;
+cout<<"1. Sortowanie przez scalanie"<<endl;
+cout<<"2. Quick-sorting"<<endl;
+cout<<"3. Sprawdz czy tablica jest posortowana poprawnie"<<endl;
+cout<<"4. Wyswietl tablice"<<endl;
+cout<<"5. Wczytaj nowa tablice"<<endl;
+cout <<"6. Zamknij program"<<endl;
 
-        cout<<tablica[i][j]<<" ";
-   
-    }
-    cout<<endl;
-      }
 
-*//*
+cin>>i;
+cout<<endl;
+switch(i){
+
+
+case 1:
+
+int ** tablica_p;
+  tablica_p= new int*[ile_tab];
+
+      for (int i=0; i<ile_tab; i++)
+tablica_p[i]=new int[rozmiar];
+      
+
 start=clock();
-
-sortuj(tablica, tablica_p, poczatek, rozmiar-1, rozmiar_tab);
+ for (int i=0; i<ile_tab; i++){
+sortujemy<int>(tablica[i],tablica_p[i],poczatek,rozmiar-1);
+ }
 
 stop=clock();
 czas=(double)(stop-start)/CLOCKS_PER_SEC;
 
-cout<<"czas"<<czas;
+cout<<"czas:"<<czas<<"s"<<endl;
 
-for(int i=0; i<rozmiar_tab; ++i){
+for(int i=0; i<ile_tab; ++i){
 delete [] tablica_p[i];
 }
 delete [] tablica_p;
-*/
-/*
-cout<<"posrotwanie";
+
+break;
+
+case 2:
+start=clock();
+for (int i=0; i<ile_tab; i++){
+quick_sort<int>(tablica[i],poczatek,rozmiar-1);
+ }
+stop=clock();
+czas=(double)(stop-start)/CLOCKS_PER_SEC;
+
+cout<<"czas:"<<czas<<"s"<<endl;
+break;
 
 
-      for (int i=0; i<rozmiar_tab; i++){
+case 3:
+bool flag;
+for (int i=0; i<ile_tab; i++){
+flag=poprawnosc<int>(tablica[i],rozmiar);
 
-       for (int j=0; j<rozmiar; j++){
+}
+if(flag==true){
+  cout<< "Tablica posortowana poprawnie"<<endl;
+}
+else 
+cout << "Tablica posortowana niepoprwanie"<<endl;
 
-        cout<<tablica[i][j]<<" ";
-   
-    }
+break;
 
+case 4:
+
+ for (int i=0; i<ile_tab; i++){
+for (int j=0; j<rozmiar; j++){
+cout<<tablica[i][j]<<" ";
+}
 cout<<endl;
-*/
-
- for (int i=0; i<rozmiar_tab; i++){
-
-       for (int j=0; j<rozmiar; j++){
-
-        cout<<tablica[i][j]<<" ";
-   
-       }
-       cout<<endl;
  }
 
+break;
 
- for (int i=0; i<rozmiar_tab; i++){
-quick_sort(tablica[i],poczatek,rozmiar);
 
+case 6:
+exit(1);
+}
+}
+}
 }
 
-cout<<"sort";
-for (int i=0; i<rozmiar_tab; i++){
-
-       for (int j=0; j<rozmiar; j++){
-
-        cout<<tablica[i][j]<<" ";
-   
-       }
-       cout<<endl;
- }
 
 
 
 
-}
+
+
+
+
