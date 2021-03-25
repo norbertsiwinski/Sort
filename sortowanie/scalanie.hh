@@ -19,3 +19,10 @@ void odwroc(TYP *tab,int rozmiar);
 
 template<typename TYP>
 bool poprawnosc(TYP *tab, int rozmiar);
+
+/*
+template<typename TYP>
+void shell(TYP *tab,int poczatek, int rozmiar);
+*/
+template<typename TYP>
+void ShellSort(TYP *a, int n);

@@ -82,7 +82,7 @@ template<typename TYP>
     
     int i = poczatek;
     int j = koniec;
-    int pivot = tab[(i + j)/2];
+    int pivot = tab[(i+j)/2];
     int pomoc;
 
     while (i <= j)
@@ -94,7 +94,7 @@ template<typename TYP>
         if (i <= j)
         {
 pomoc= tab[i];
-            tab[i] = tab[j];
+     tab[i] = tab[j];
             tab[j] = pomoc;
     
             i++;
@@ -111,86 +111,45 @@ pomoc= tab[i];
 
 template<typename TYP>
  void odwroc(TYP *tab,int rozmiar){
-int pom[rozmiar];
-for(int i=0; i<rozmiar; i++){
-pom[i]=tab[i];
-}
-for(int i=0; i>rozmiar; i++){
-tab[rozmiar--]=pom[i];
 
+for(int i=0; i<=rozmiar; i++){
+
+swap(tab[i],tab[rozmiar]);
+rozmiar--;
 }
  }
 
+
  
-	/*
-	if(prawy <= lewy) return;
 	
-	int i = lewy - 1, j = prawy + 1, 
-	pivot = tab[(lewy+prawy)/2]; //wybieramy punkt odniesienia
+template<typename TYP>
+void ShellSort(TYP *tab, int rozmiar)
+{
+	int d, j, k, pomoc;
 	
-	while(1)
+	for(d = rozmiar/2; d > 0; d = d/2)
 	{
-		//szukam elementu wiekszego lub rownego piwot stojacego
-		//po prawej stronie wartosci pivot
-		while(pivot>tab[++i]);
-		
-		//szukam elementu mniejszego lub rownego pivot stojacego
-		//po lewej stronie wartosci pivot
-		while(pivot<tab[--j]);
-		
-		//jesli liczniki sie nie minely to zamień elementy ze soba
-		//stojace po niewlasciwej stronie elementu pivot
-		if( i <= j)
-			//funkcja swap zamienia wartosciami tab[i] z tab[j]
-			swap(tab[i],tab[j]);
-		else
-			break;
+		for(j = d; j < rozmiar; j++)
+		{
+			for(k = j-d; k >= 0; k = k-d)
+			{
+			
+				if(tab[k+d] >= tab[k])
+                
+				break;
+				
+				else
+				{
+					pomoc = tab[k];
+					tab[k] = tab[k+d];
+					tab[k+d] = pomoc;
+				}
+			}
+        }
 	}
-
-	if(j > lewy)
-	quick_sort(tab, lewy, j);
-	if(i < prawy)
-	quick_sort(tab, i, prawy);
-
 }
-/*
-/*
-int i,j;
-int srodek=(poczatek+koniec)/2;
-int piwot=tab[srodek];
-int pomoc;
-pomoc= tab[koniec];
-            tab[koniec] = tab[srodek];
-            tab[srodek] = pomoc;
-//swap(tab[srodek],tab[koniec]);
-
-for(j=i=poczatek; i<koniec; i++){
 
 
-if(tab[i]<piwot){
-pomoc= tab[i];
-            tab[i] = tab[j];
-            tab[j] = pomoc;
-
-
-  //    swap(tab[i],tab[j]);
-      j++;
-}
-}
-pomoc= tab[koniec];
-            tab[koniec] = tab[j];
-            tab[j] = pomoc;
-
-//swap(tab[koniec],tab[j]);
-
-if(poczatek<j-1)
-quick_sort(tab,poczatek,j-1);
-
-
-if(j+1<koniec)
-quick_sort(tab,j+1,koniec);
-
-*/
 
 template<typename TYP>
 bool poprawnosc(TYP *tab, int rozmiar){

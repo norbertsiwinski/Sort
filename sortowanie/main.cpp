@@ -75,8 +75,6 @@ case 3:
 for (int i=0; i<ile_tab; i++){
 quick_sort<int>(tablica[i],poczatek,rozmiar);
  }
-
-
 for (int i=0; i<ile_tab; i++){
 odwroc<int>(tablica[i],rozmiar-1);
 }
@@ -93,8 +91,8 @@ cout<<"2. Quick-sorting"<<endl;
 cout<<"3. Sprawdz czy tablica jest posortowana poprawnie"<<endl;
 cout<<"4. Wyswietl tablice"<<endl;
 cout<<"5. Wczytaj nowa tablice"<<endl;
-cout <<"6. Zamknij program"<<endl;
-
+cout<<"6. Shell-sort"<<endl;
+cout <<"7. Zamknij program"<<endl;
 
 cin>>i;
 cout<<endl;
@@ -164,9 +162,26 @@ cout<<endl;
 
 break;
 
-
 case 6:
+
+start=clock();
+
+for (int i=0; i<ile_tab; i++){
+ShellSort<int>(tablica[i],rozmiar);
+}
+stop=clock();
+czas=(double)(stop-start)/CLOCKS_PER_SEC;
+
+cout<<"czas:"<<czas<<"s"<<endl;
+
+break;
+
+
+case 7:
 exit(1);
+
+
+
 }
 }
 }
