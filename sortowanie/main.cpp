@@ -64,7 +64,7 @@ cout<<"Podaj procent, w jakim tablica ma byc posortowana:";
 cin >> procent;
 
  for (int i=0; i<ile_tab; i++){
-quick_sort<int>(tablica[i],poczatek,rozmiar*procent/100);
+quick_sort<int>(tablica[i],poczatek,rozmiar*procent/100-1);
  }
 
 

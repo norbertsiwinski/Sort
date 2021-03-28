@@ -127,7 +127,7 @@ void ShellSort(TYP *tab, int rozmiar)
 {
 	int d, j, k, pomoc;
 	
-	for(d = rozmiar/2; d > 0; d = d/2)
+	for(d = rozmiar/2; d >0; d =d/2)
 	{
 		for(j = d; j < rozmiar; j++)
 		{
